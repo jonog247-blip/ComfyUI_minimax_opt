@@ -1,0 +1,599 @@
+{
+  "revision": 0,
+  "last_node_id": 7,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        -1660,
+        120
+      ],
+      "size": [
+        430,
+        100
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "unet_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "weight_dtype"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "MiniMax H3 diffusion model (int8 convrot)",
+      "widgets_values": [
+        "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "MiniMaxH3Optimiser",
+      "pos": [
+        -1160,
+        120
+      ],
+      "size": [
+        430,
+        130
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "mode"
+          },
+          "link": null
+        },
+        {
+          "name": "apply_shift",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "apply_shift"
+          },
+          "link": null
+        },
+        {
+          "name": "shift_video",
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift_video"
+          },
+          "link": null
+        },
+        {
+          "name": "shift_audio",
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift_audio"
+          },
+          "link": null
+        },
+        {
+          "name": "tau",
+          "type": "FLOAT",
+          "widget": {
+            "name": "tau"
+          },
+          "link": null
+        },
+        {
+          "name": "start_percent",
+          "type": "FLOAT",
+          "widget": {
+            "name": "start_percent"
+          },
+          "link": null
+        },
+        {
+          "name": "end_percent",
+          "type": "FLOAT",
+          "widget": {
+            "name": "end_percent"
+          },
+          "link": null
+        },
+        {
+          "name": "dense_blocks",
+          "type": "STRING",
+          "widget": {
+            "name": "dense_blocks"
+          },
+          "link": null
+        },
+        {
+          "name": "min_tokens",
+          "type": "INT",
+          "widget": {
+            "name": "min_tokens"
+          },
+          "link": null
+        },
+        {
+          "name": "extra_tokens",
+          "type": "INT",
+          "widget": {
+            "name": "extra_tokens"
+          },
+          "link": null
+        },
+        {
+          "name": "sink_conditioning",
+          "type": "COMBO",
+          "widget": {
+            "name": "sink_conditioning"
+          },
+          "link": null
+        },
+        {
+          "name": "verbose",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "verbose"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3Optimiser",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "MiniMax H3 Optimiser",
+      "widgets_values": [
+        "balanced",
+        false,
+        12.0,
+        3.0,
+        1.3,
+        0.25,
+        0.95,
+        "",
+        12288,
+        256,
+        "exact_kv_and_rows",
+        false
+      ]
+    },
+    {
+      "id": 3,
+      "type": "MiniMaxH3Scheduler",
+      "pos": [
+        -1660,
+        620
+      ],
+      "size": [
+        430,
+        220
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        },
+        {
+          "name": "terminal_steps",
+          "type": "INT",
+          "widget": {
+            "name": "terminal_steps"
+          },
+          "link": null
+        },
+        {
+          "name": "sigma_min",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sigma_min"
+          },
+          "link": null
+        },
+        {
+          "name": "structure_hold",
+          "type": "FLOAT",
+          "widget": {
+            "name": "structure_hold"
+          },
+          "link": null
+        },
+        {
+          "name": "max_gap",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_gap"
+          },
+          "link": null
+        },
+        {
+          "name": "auto_tail",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "auto_tail"
+          },
+          "link": null
+        },
+        {
+          "name": "shift_video",
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift_video"
+          },
+          "link": null
+        },
+        {
+          "name": "shift_audio",
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift_audio"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "links": null
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3Scheduler",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "MiniMax H3 Scheduler",
+      "widgets_values": [
+        "h3_balanced",
+        14,
+        1.0,
+        4,
+        0.02,
+        1.0,
+        1.9,
+        false,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": 6,
+      "type": "MiniMaxH3Budget",
+      "pos": [
+        -1160,
+        620
+      ],
+      "size": [
+        430,
+        200
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        },
+        {
+          "name": "seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "name": "device_tflops",
+          "type": "FLOAT",
+          "widget": {
+            "name": "device_tflops"
+          },
+          "link": null
+        },
+        {
+          "name": "utilisation",
+          "type": "FLOAT",
+          "widget": {
+            "name": "utilisation"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "length_frames",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "packed_tokens",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3Budget",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "MiniMax H3 Budget",
+      "widgets_values": [
+        1344,
+        768,
+        5.0,
+        14,
+        150.0,
+        0.35
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PreviewAny",
+      "pos": [
+        -1160,
+        900
+      ],
+      "size": [
+        430,
+        200
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "optimiser report",
+      "widgets_values": []
+    },
+    {
+      "id": 5,
+      "type": "PreviewAny",
+      "pos": [
+        -1660,
+        900
+      ],
+      "size": [
+        430,
+        200
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "scheduler report",
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "PreviewAny",
+      "pos": [
+        -660,
+        900
+      ],
+      "size": [
+        430,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "cnr_id": "comfy-core",
+        "ver": "0.39.0"
+      },
+      "title": "budget report",
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      2,
+      1,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      3,
+      1,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      6,
+      2,
+      7,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

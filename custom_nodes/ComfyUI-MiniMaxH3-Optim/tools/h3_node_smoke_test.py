@@ -47,6 +47,8 @@ def _install_stubs():
     torch.Tensor = _FakeTensor
     torch.FloatTensor = lambda data=None, *a, **k: _FakeTensor(data or [])
     torch.no_grad = lambda: (lambda fn: fn)
+    torch.randn_like = lambda t: t
+    torch.cuda = types.SimpleNamespace(is_available=lambda: False)
     torch.cat = lambda tensors, dim=-1: tensors[0]
     torch.isfinite = lambda t: types.SimpleNamespace(all=lambda: True)
     sys.modules["torch"] = torch
@@ -55,6 +57,8 @@ def _install_stubs():
 
     mm = types.ModuleType("comfy.model_management")
     mm.throw_exception_if_processing_interrupted = lambda: None
+    mm.get_torch_device = lambda: types.SimpleNamespace(type="cpu")
+    mm.get_torch_device_name = lambda device: "stub device"
     comfy.model_management = mm
 
     samplers = types.ModuleType("comfy.samplers")
@@ -70,6 +74,7 @@ def _install_stubs():
 
     samplers.KSAMPLER = KSampler
     samplers.Sampler = Sampler
+    samplers.Guider_Basic = lambda model: None
     comfy.samplers = samplers
 
     utils = types.ModuleType("comfy.utils")
