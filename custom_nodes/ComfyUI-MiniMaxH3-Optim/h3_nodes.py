@@ -171,7 +171,8 @@ class MiniMaxH3Budget:
                     "default": 150.0, "min": 1.0, "max": 10000.0, "step": 5.0,
                     "tooltip": "Effective dense throughput of the GPU for this model's datatype. "
                                "An RTX 5070 Ti lands near 150 TFLOP/s for int8 weights with bf16 "
-                               "activations; tighten this after running tools/benchmark_h3.py.",
+                               "activations; tighten this after the MiniMax H3 Bench node says "
+                               "what your card actually sustains.",
                 }),
                 "utilisation": ("FLOAT", {"default": 0.35, "min": 0.05, "max": 1.0, "step": 0.05}),
             },

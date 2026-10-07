@@ -196,3 +196,29 @@ stock ones, and the sampler runs through `SamplerCustomAdvanced` exactly like
 * `docs/fedora-5070ti-guide.md` — the whole machine, not just the nodes: driver,
   PyTorch build, attention kernels, launch flags, model files, where the time
   goes, and the Windows 11 comparison.
+
+## Core changes considered
+
+The pack deliberately ships zero changes to `comfy/`. Four candidates were
+reviewed on their merits before being dropped, and the reasons are worth
+recording so nobody re-litigates them from scratch:
+
+* **`MiniMaxH3SigmaShift`** (`comfy_extras/nodes_minimax_h3.py:367`) — checked
+  line by line because both the sampler and the DiT timestep labels depend on
+  it. It sets `model_sampling` *and* the `minimax_h3_sigma_shift_video/audio`
+  transformer options, which is exactly right. Nothing to fix.
+* **PDD head selection** (`comfy/ldm/minimax/model.py:326-348`) — the head-bank
+  indexing is `round((1 - time_shift_sigma(sigma, shift, 1)) * n)` clamped into
+  the bank, and the dt weights are normalised over the sliced interval. Out of
+  range slices degrade gracefully instead of misindexing. Nothing to fix.
+* **Default schedule for AV models** — changing `simple` in `comfy/samplers.py`
+  to end on a terminal band would change every H3 generation for everyone,
+  silently, including the ones the workflow's turbo LoRA was trained for. That
+  belongs in a node you can switch off, which is what this pack is.
+* **H3's `memory_usage_factor`** — 0.114 in `supported_models.py:964` drives
+  ComfyUI's VRAM planning, and on a 16 GB card it is the difference between one
+  resident model and offloading. Retuning it needs a 16 GB Blackwell card and a
+  stopwatch; guessing at a core memory heuristic from a machine with no GPU
+  would be exactly the kind of change that looks helpful and wastes a weekend.
+  `MiniMax H3 Bench` reports peak VRAM for your real canvas, which is the
+  measurement that would justify a change here.
